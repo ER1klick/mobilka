@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OnboardActivity">
+    tools:context=".OnboardFragment">
 
     <ImageView
         android:id="@+id/gifImageView"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="KvasChat"
+        android:text="RaN Fandom"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="Здесь вы можете общаться с друзьями"
+        android:text="Здесь вы можете обсудить RaN"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -49,9 +49,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="124dp"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#FF6200EE"
         android:text="Начать прямо сейчас"
-        android:textColor="#B40000"
+        android:textColor="#FFFFFF"
         android:textSize="13dp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

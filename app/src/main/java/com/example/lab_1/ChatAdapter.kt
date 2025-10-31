@@ -7,7 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ChatAdapter(private val chatList: List<Chat>) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+class ChatAdapter(
+    private val chatList: List<Chat>,
+    private val onItemClicked: (Chat) -> Unit
+) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val profileImageView: ImageView = itemView.findViewById(R.id.profileImageView)
@@ -27,6 +30,9 @@ class ChatAdapter(private val chatList: List<Chat>) : RecyclerView.Adapter<ChatA
         holder.senderNameTextView.text = currentChat.senderName
         holder.lastMessageTextView.text = currentChat.lastMessage
         holder.timestampTextView.text = currentChat.timestamp
+        holder.itemView.setOnClickListener {
+            onItemClicked(currentChat)
+        }
     }
 
     override fun getItemCount() = chatList.size
