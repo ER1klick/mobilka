@@ -25,6 +25,11 @@
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="registered_user"
+            app:argType="com.example.lab_1.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
