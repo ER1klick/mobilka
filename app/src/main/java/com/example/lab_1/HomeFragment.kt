@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lab_1.databinding.ActivityHomeBinding
@@ -13,6 +15,9 @@ class HomeFragment : Fragment() {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var chatAdapter: ChatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,27 +29,27 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        observeViewModel()
+        viewModel.fetchCharacters()
+    }
 
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val chatList = createChatList()
-        val chatAdapter = ChatAdapter(chatList) { chat ->
-            val action = HomeFragmentDirections.actionHomeFragmentToChatFragment(chat.senderName)
+    private fun setupRecyclerView() {
+        chatAdapter = ChatAdapter(emptyList()) { character ->
+            val action = HomeFragmentDirections.actionHomeFragmentToChatFragment(character.name)
             findNavController().navigate(action)
         }
+        binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.chatRecyclerView.adapter = chatAdapter
     }
 
-    private fun createChatList(): List<Chat> {
-        return listOf(
-            Chat("1 сезон", "просмотров: 123123123", "12:01", R.drawable.profile_image_1),
-            Chat("2 сезон", "просмотров: 12312312", "12:05", R.drawable.profile_image_2),
-            Chat("3 сезон", "просмотров: 1231231", "12:10", R.drawable.profile_image_3),
-            Chat("4 сезон", "просмотров: 123123", "12:40", R.drawable.profile_image_4),
-            Chat("5 сезон", "просмотров: 12312", "19:23", R.drawable.profile_image_5),
-            Chat("6 сезон", "просмотров: 1231", "11:15", R.drawable.profile_image_6),
-            Chat("7 сезон", "просмотров: 123", "02:30", R.drawable.profile_image_7),
-            Chat("8 сезон", "просмотров: 12", "15:32", R.drawable.profile_image_8),
-        )
+    private fun observeViewModel() {
+        viewModel.characters.observe(viewLifecycleOwner) { characters ->
+            chatAdapter.updateData(characters)
+        }
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroyView() {
