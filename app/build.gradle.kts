@@ -57,8 +57,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.fragment:fragment-ktx:1.7.1")
 }
-<<<<<<< Updated upstream
-=======
+
 
 configurations.all {
     resolutionStrategy.eachDependency {
@@ -67,4 +66,4 @@ configurations.all {
         }
     }
 }
->>>>>>> Stashed changes
+
