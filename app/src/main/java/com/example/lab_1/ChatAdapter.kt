@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
 package com.example.lab_1
 
 import android.view.LayoutInflater
@@ -5,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lab_1.databinding.ChatItemBinding
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 
 class ChatAdapter(
     private var characters: List<Character>,

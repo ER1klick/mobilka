@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.lab_1.databinding.ActivitySignInBinding
 
 class SignInFragment : Fragment() {
@@ -16,6 +17,7 @@ class SignInFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var user: User
+    private val args: SignInFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,15 +30,15 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = findNavController()
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<User>("registered_user")
-            ?.observe(viewLifecycleOwner) { returnedUser ->
-                user = returnedUser
-                binding.emailEditText.setText(user.email)
-            }
+        val registeredUser = args.registeredUser
+        if (registeredUser != null) {
+            user = registeredUser
+            binding.emailEditText.setText(user.email)
+        }
 
         binding.signUpButton.setOnClickListener {
-            navController.navigate(R.id.action_signInFragment_to_signUpFragment)
+            val action = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
+            findNavController().navigate(action)
         }
 
         binding.signInButton.setOnClickListener {
@@ -44,7 +46,8 @@ class SignInFragment : Fragment() {
             val password = binding.passwordEditText.text.toString()
 
             if (::user.isInitialized && email == user.email && password == user.password) {
-                navController.navigate(R.id.action_signInFragment_to_homeFragment)
+                val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment()
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Неверные учетные данные", Toast.LENGTH_SHORT).show()
             }

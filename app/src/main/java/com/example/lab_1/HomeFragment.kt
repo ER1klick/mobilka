@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
 package com.example.lab_1
 
 import android.os.Bundle
@@ -10,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lab_1.databinding.ActivityHomeBinding
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 
 class HomeFragment : Fragment() {
 
@@ -36,7 +39,7 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         chatAdapter = ChatAdapter(emptyList()) { character ->
-            val action = HomeFragmentDirections.actionHomeFragmentToChatFragment(character.name)
+            val action = HomeFragmentDirections.actionHomeFragmentToChatFragment(character.id)
             findNavController().navigate(action)
         }
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())

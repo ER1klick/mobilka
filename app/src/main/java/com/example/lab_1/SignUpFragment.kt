@@ -32,8 +32,8 @@ class SignUpFragment : Fragment() {
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 val user = User(userName, email, password)
-                findNavController().previousBackStackEntry?.savedStateHandle?.set("registered_user", user)
-                findNavController().popBackStack()
+                val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment(user)
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
             }

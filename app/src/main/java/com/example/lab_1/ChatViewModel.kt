@@ -9,22 +9,21 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 
-class HomeViewModel : ViewModel() {
+class ChatViewModel : ViewModel() {
 
-    private val _characters = MutableLiveData<List<Character>>()
-    val characters: LiveData<List<Character>> get() = _characters
+    private val _character = MutableLiveData<Character>()
+    val character: LiveData<Character> get() = _character
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    fun fetchCharacters() {
+    fun fetchCharacter(id: Int) {
         viewModelScope.launch {
             try {
-                val characterIds = (601..650).joinToString(",")
-                val response = RetrofitInstance.api.getCharacters(characterIds)
-                _characters.postValue(response)
+                val response = RetrofitInstance.api.getCharacterById(id)
+                _character.postValue(response)
             } catch (e: Exception) {
-                _error.postValue("Failed to load data: ${e.message}")
+                _error.postValue("Failed to load character details: ${e.message}")
             }
         }
     }
