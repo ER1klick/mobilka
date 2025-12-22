@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -54,4 +57,14 @@
             android:name="chatUserName"
             app:argType="string" />
     </fragment>
+<<<<<<< Updated upstream
+=======
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.lab_1.SettingsFragment"
+        android:label="Настройки"
+        tools:layout="@layout/fragment_settings" />
+
+>>>>>>> Stashed changes
 </navigation>
