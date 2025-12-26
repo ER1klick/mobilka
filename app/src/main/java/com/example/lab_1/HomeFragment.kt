@@ -2,9 +2,20 @@ package com.example.lab_1
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+<<<<<<< Updated upstream
 import androidx.fragment.app.Fragment
+=======
+import android.widget.Toast
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+>>>>>>> Stashed changes
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lab_1.databinding.ActivityHomeBinding
@@ -24,6 +35,35 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+<<<<<<< Updated upstream
+=======
+        setupToolbar()
+        setupRecyclerView()
+        observeViewModel()
+        if (viewModel.characters.value.isNullOrEmpty()) {
+            viewModel.fetchCharacters()
+        }
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.home_menu, menu)
+            }
+
+
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return if (menuItem.itemId == R.id.action_settings) {
+                    findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+                    true
+                } else {
+                    false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+>>>>>>> Stashed changes
 
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         val chatList = createChatList()
